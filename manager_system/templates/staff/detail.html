@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h1>
+        {% if staff != '未找到' %}
+            姓名：{{ staff.name }}<br><br>
+            出生日期：{{ staff.birthday }}<br><br>
+            性别：{{ staff.gender }}<br><br>
+            手机号码：{{ staff.phone}}<br><br>
+            工资：{{ staff.salary}}<br><br>
+            部门：{{ staff.department }}<br><br>
+        {% else %}
+            查询结果为：0
+        {% endif %}
+    </h1>
+</div>
+</body>
+</html>

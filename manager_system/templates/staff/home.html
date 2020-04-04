@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<div align="center">
+    <h1>员工管理系统</h1>
+    <h3>海贼王公司</h3>
+    <hr>
+    <table border="1">
+        <tr align="center">
+            <td width="50" height="44">序号</td>
+            <td width="60" height="44">姓名</td>
+            <td width="100" height="44">出生日期</td>
+            <td width="50" height="44">性别</td>
+            <td width="100" height="44">手机号码</td>
+            <td width="100" height="44">工资</td>
+            <td width="90" height="44">部门</td>
+            <td width="120" height="44">操作事项</td>
+        </tr>
+        {% for staff in pg_staffs %}
+            <tr align="center">
+                <td height="40">{{ staff.id }}</td>
+                <td height="40">{{ staff.name }}</td>
+                <td height="40">{{ staff.birthday|date:'y-m-d' }}</td>
+                <td height="40">
+                    {% if staff.gender == 1 %}
+                        男
+                    {% else %}
+                        女
+                    {% endif %}
+                </td>
+                <td height="40">{{ staff.phone }}</td>
+                <td height="40">{{ staff.salary }}</td>
+                <td height="40">{{ staff.department }}</td>
+                <td height="40">
+                    <a href="/staff/detail_{{ staff.id }}/">查询</a>
+                    <a href="/staff/edt/?id={{ staff.id }}">修改</a>
+                    <a href="{% url 'sf:del' staff.id %}">删除</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br><br>
+
+    <h2>
+        <a href="/staff/add/">添加</a>
+        <br><br>
+
+        {% if pg_staffs.has_previous %}
+            <a href="/staff/home/?page={{ pg_staffs.previous_page_number }}">上一页</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+        {% endif %}
+
+        {% for index in pn.page_range %}
+            {% if pg_staffs.number == index %}
+                {{ index }}
+            {% else %}
+                <a href="/staff/home/?page={{ index }}">{{ index }}</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            {% endif %}
+        {% endfor %}
+
+        {% if pg_staffs.has_next %}
+            <a href="/staff/home/?page={{ pg_staffs.next_page_number }}">下一页</a>
+        {% endif %}
+    </h2>
+</div>
+</body>
+</html>
